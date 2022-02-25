@@ -18,8 +18,11 @@ struct st{
 }typedef st;
 
 vector<st> v;
+double dis;
+int xdis , ydis;
+st nextone;
 
-void dfs(st t);
+void dfs(st curr);
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -28,7 +31,7 @@ int main(){
 
     cin >> T;
     int sx , sy , r;
-    st temp, newone;
+    st temp;
 
     for(int qq = 0;  qq< T ;qq++){
         cin >> N;
@@ -58,25 +61,24 @@ int main(){
 
 }
 
-void dfs(st t){
+void dfs(st curr){
     
-    visit[t.x][t.y] = true;
+    visit[curr.x][curr.y] = true;
 
     for(int i =0; i<v.size(); i++){
 
-        double dis =0;
-        int xdis = (t.x - v[i].x) * (t.x - v[i].x);
-        int ydis = (t.y - v[i].y) * (t.y - v[i].y);
+        xdis = (curr.x - v[i].x) * (curr.x - v[i].x);
+        ydis = (curr.y - v[i].y) * (curr.y - v[i].y);
 
         dis = sqrt(xdis+ydis);
 
-        if(dis <= t.r + v[i].r){
+        if(dis <= curr.r + v[i].r){
             if(!visit[v[i].x][v[i].y]){
-                st nn;
-                nn.x = v[i].x;
-                nn.y = v[i].y;
-                nn.r = v[i].r;
-                dfs(nn);
+                
+                nextone.x = v[i].x;
+                nextone.y = v[i].y;
+                nextone.r = v[i].r;
+                dfs(nextone);
             }
         }
         
